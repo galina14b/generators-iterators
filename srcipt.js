@@ -6,22 +6,11 @@
 
 const display = document.querySelector('.display');
 
-function calculating(numbers) {
-  let result = [];
-  for (let num of numbers) {
-    if (num % 3 === 0 && num % 15 !== 0) {
-        result.push(`<p class="fizz"> Fizz </p>`)
-      } else if (num % 5 === 0 && num % 15 !== 0) {
-        result.push(`<p class="buzz"> Buzz </p>`);
-    } else if (num % 15 === 0) {
-      result.push(`<p class="fizzbuzz"> FizzBuzz </p>`);
-    } else {
-      result.push(`<p> ${num} </p>`)
-    }
-  }
-  display.insertAdjacentHTML('beforeend',`${result}`);
-
+function posting(value) {
+  let cssClass = `${value}`.toLowerCase();
+  return display.insertAdjacentHTML('beforeend',`<p class="${cssClass}"> ${value} </p>`);
 };
+
 
 //# Iterator
 
@@ -38,49 +27,88 @@ range[Symbol.iterator] = function() {
   return {
     next() {
       if (current <= last) {
-        return {
+        let result = {
           done: false,
-          value: current++
-        };
+          value: ''
+        }
+
+        if (current % 3 === 0 && current % 15 !== 0) {
+          result.value = 'Fizz';
+
+        }else if (current % 5 === 0 && current % 15 !== 0) {
+          result.value = 'Buzz';
+
+        }else if (current % 15 === 0) {
+          result.value = 'FizzBuzz';
+
+        } else {
+          result.value = current;
+
+        }
+
+        current++;
+
+        return result;
       } else {
         return {
           done: true
-        };
+        }
       }
     }
   }
 };
 
+for (let value of range) {
+  posting(value);
+}
 
-calculating(range);
 
-// #Generator
+
+//#Generator
 
 // function* generator(start, end) {
 
 //   for (let i = start; i <= end; i++) {
-//     yield i;
+//     if (i % 3 === 0 && i % 15 !== 0) {
+//       yield 'Fizz';
+
+//     }else if (i % 5 === 0 && i % 15 !== 0) {
+//       yield 'Buzz';
+  
+
+//     }else if (i % 15 === 0) {
+//       yield 'FizzBuzz';
+
+//     } else {
+//       yield i;
+//     }
+    
 //   }
 
 // }
 
-// let numbersFromGenerator = [...generator(1, 100)];
+// let numbersFromGenerator = generator(1, 100);
 
-// calculating(numbersFromGenerator);
+// for (let number of numbersFromGenerator) {
+//   posting(number)
+// }
+
+
+
 
 // Task #2
 
-function* generateRandomNumbers(max, quantity) {
+// function* generateRandomNumbers(max, quantity) {
 
-  for (let i = 1; i <= quantity; i++) {
-    let random = 1 + Math.random() * (max + 1 - 1);
-    let randomNumber = Math.floor(random);
-    yield randomNumber;
-  }
-}
+//   for (let i = 1; i <= quantity; i++) {
+//     let random = 1 + Math.random() * (max + 1 - 1);
+//     let randomNumber = Math.floor(random);
+//     yield randomNumber;
+//   }
+// }
 
-let randomNumbers = [... generateRandomNumbers(10, 20)]
-console.log(randomNumbers)
+// let randomNumbers = [... generateRandomNumbers(10, 20)]
+// console.log(randomNumbers)
 
 
 // тут виклик та ітерування в циклі
