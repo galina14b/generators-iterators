@@ -32,14 +32,14 @@ range[Symbol.iterator] = function() {
           value: ''
         }
 
-        if (current % 3 === 0 && current % 15 !== 0) {
+        if (current % 15 === 0) {
+          result.value = 'FizzBuzz';
+
+        } else if (current % 3 === 0) {
           result.value = 'Fizz';
 
-        }else if (current % 5 === 0 && current % 15 !== 0) {
+        }else if (current % 5 === 0) {
           result.value = 'Buzz';
-
-        }else if (current % 15 === 0) {
-          result.value = 'FizzBuzz';
 
         } else {
           result.value = current;
@@ -69,15 +69,15 @@ for (let value of range) {
 // function* generator(start, end) {
 
 //   for (let i = start; i <= end; i++) {
-//     if (i % 3 === 0 && i % 15 !== 0) {
+//     if (i % 15 === 0) {
+//       yield 'FizzBuzz';
+
+//     }else if (i % 3 === 0) {
 //       yield 'Fizz';
 
-//     }else if (i % 5 === 0 && i % 15 !== 0) {
+//     }else if (i % 5 === 0) {
 //       yield 'Buzz';
   
-
-//     }else if (i % 15 === 0) {
-//       yield 'FizzBuzz';
 
 //     } else {
 //       yield i;
